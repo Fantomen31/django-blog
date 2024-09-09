@@ -5,7 +5,7 @@ from .models import About
 
 def about_view(request):
     # Fetch the latest About content using the first() method
-    latest_about = About.objects.order_by('-id').first()
+    about = About.objects.all().order_by('-updated_on').first()
     
     # Pass the latest_about content to the template
-    return render(request, 'about/about.html', {'about': latest_about})
+    return render(request, 'about/about.html', {'about': about})
