@@ -44,7 +44,11 @@ def post_detail(request, slug):
                 'Comment submitted by pigeon, awaiting approval'
             )
 
-    comment_form = CommentForm()
+    if request.method == "POST":
+        print("Recieved a POST request")
+
+    comment_form = CommentForm()   
+    print("About to render template")
 
     return render(
         request,
