@@ -6,6 +6,10 @@ from cloudinary.models import CloudinaryField
 STATUS = ((0,"Draft"), (1, "Published"))
 
 class Post(models.Model):
+    """
+    Stores a single blog post entry related to  :model 'author.User'.
+    """
+
     title = models.CharField(max_length=200,unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(
@@ -20,14 +24,25 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
+        """
+        Meta options for the Post model.
+
+        Attributes:
+            ordering (list): Orders posts by the date they were created, with the newest posts first.
+        """
         ordering = ["-created_on"]
         
     def __str__(self):
+         
         return f"{self.title} | written by {self.author}"
 
 
 
 class Comment(models.Model):
+    """
+    Represents a comment on a blog post.
+    """
+    
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE,
     related_name="comments")
